@@ -40,7 +40,7 @@ jobs:
           docker push "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:${IMAGE_SHA}"
 
       - name: Snyk scan (ECR image)
-        uses: snyk/actions/docker@v4
+        uses: snyk/actions/docker@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -49,7 +49,7 @@ jobs:
 
       # Needed because scripts/snyk_scan_and_bless.sh calls the Snyk CLI
       - name: Install Snyk CLI
-        uses: snyk/actions/setup@v4
+        uses: snyk/actions/setup@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
