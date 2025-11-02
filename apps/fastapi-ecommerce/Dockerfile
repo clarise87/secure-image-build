@@ -1,25 +1,13 @@
+
 # syntax=docker/dockerfile:1
-FROM python:3.10-slim
-
-# Install system packages needed for pip and Python builds
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
+FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+RUN useradd -m -u 1000 appuser
 WORKDIR /app
-
-# Copy requirements and install
-COPY requirements.txt .
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
-# Create virtualenv
-python3 -m venv venv
-source venv/bin/activate
-
-# Install dependencies
-pip install --upgrade pip setuptools wheel
-pip install -r requirements.txt
-pip install --no-cache-dir -r requirements.txt
-set -e  # Exit immediately if a command fail
-pip install -r requirements.txt | tee install.log
+COPY . ./
+RUN chown -R appuser:appuser /app
+USER appuser
+EXPOSE 3000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
