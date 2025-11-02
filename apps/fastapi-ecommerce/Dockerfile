@@ -6,12 +6,12 @@ PIP_NO_CACHE_DIR=1
 # install dependencies for building python packages
 RUN apt-get update && apt-get install -y gcc libffi-dev build-essential
 # creat app directory
-WORKDIR  / app
+WORKDIR  /app
 RUN useradd -m -u 1000 appuser
 COPY requirements.txt ./
-# upgrade pip and install requirments
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirments.txt
-# copy all project files including requirments.txt
+# upgrade pip and install requirements
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+# copy all project files including requirements.txt
 COPY . ./
 # creat and use a non-root user
 RUN useradd -m -u 1000 appuser
