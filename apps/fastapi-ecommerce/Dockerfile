@@ -4,7 +4,9 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
 RUN useradd -m -u 1000 appuser
 WORKDIR /app
 COPY requirements.txt ./
+# install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
+# copy the rest of the app
 COPY . ./
 RUN chown -R appuser:appuser /app
 USER appuser
