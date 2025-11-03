@@ -11,9 +11,7 @@ WORKDIR /app
 # copy only requirement file first [for docker caching]
 COPY requirements.txt ./
 # install dependencies
-RUN pip install --upgrade pip && \ 
-pip install  --no-cache-dir -r 
-requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 # copy the rest of the app
 COPY . ./
 # Adjust permissions
