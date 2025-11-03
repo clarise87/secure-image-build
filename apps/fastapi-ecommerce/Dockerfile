@@ -8,7 +8,7 @@ PIP_NO_CACHE_DIR=1
 RUN useradd -m -u 1000 appuser
 # set work directory
 WORKDIR /app
-# copy requirement file first [for docker caching]
+# copy only requirement file first [for docker caching]
 COPY requirements.txt ./
 RUN pip install --upgrade pip && \ 
 pip install  --no-cache-dir -r
@@ -21,5 +21,5 @@ RUN chown -R appuser:appuser /app
 USER appuser
 # expose the app port
 EXPOSE 3000
-# start the app
+# start the fastAPI aoo with uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3000"]
