@@ -12,7 +12,7 @@ WORKDIR /app
 COPY requirements.txt ./
 # install dependencies
 RUN  pip  install  --no-cache-dir -r
-requirements.txt
+requirements.txt ./
 # copy the rest of the app
 COPY . ./
 # Adjust permissions
